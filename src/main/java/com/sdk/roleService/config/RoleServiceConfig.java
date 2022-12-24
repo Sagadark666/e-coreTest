@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RoleServiceConfig {
+public class RoleServiceConfig{
 
     @Bean
     IRoleService iRoleService(IRoleRepo iRoleRepo, IMembershipRepo iMembershipRepo){

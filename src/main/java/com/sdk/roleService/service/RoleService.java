@@ -18,8 +18,28 @@ public class RoleService implements IRoleService {
         this.membershipRepo = membershipRepo;
     }
 
+    //TODO
+    // Add Defaulter for all memberships - DONE - But Burned "Developer"
+    // Add Validation of role assignation
+    // Add Validation of existing roles
+    // Add Validation of existing assignations
+    // Add Rewrite Assignations of Role
+    // Add ResponseEntities
+    // Add ExceptionHandlers
+    // Add UnitTesting
+    // Add RestTesting
+    // Add DockerIntegration
+    // Review Directory Structure
+    // Clean up classes
+    // Review if roleServices has to be split
+
     public String getRole(String teamId, String userId){
-        return membershipRepo.getRoleByTeamidAndUserid(teamId, userId).getRole();
+        try{
+            return membershipRepo.getRoleByTeamidAndUserid(teamId, userId).getRole();
+        }catch (Exception e){
+            assignRole(userId, teamId, "Developer");
+            return membershipRepo.getRoleByTeamidAndUserid(teamId, userId).getRole();
+        }
     }
 
     public List<MembershipModel> getMembershipsByRole(String role){
