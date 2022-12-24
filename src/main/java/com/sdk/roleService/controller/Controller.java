@@ -39,18 +39,18 @@ public class Controller {
 
     @GetMapping("/{role-name}")
     public ResponseEntity<List<MembershipModel>> getRole(@PathVariable("role-name")String roleName){
-        return new ResponseEntity<>(service.getMembershipsByRole(roleName), HttpStatus.OK);
+        return new ResponseEntity<>(service.getMembershipsByRole(roleName.toUpperCase()), HttpStatus.OK);
     }
 
     @PutMapping("/assign")
     public ResponseEntity<AssignRoleResponse> setRole(@RequestBody MembershipRequest request) throws IOException {
         requestValidator.emptyMembershipField(request);
-        return new ResponseEntity<>(service.assignRole(request.userId, request.teamId, request.role), HttpStatus.OK);
+        return new ResponseEntity<>(service.assignRole(request.userId, request.teamId, request.role.toUpperCase()), HttpStatus.OK);
     }
 
     @PostMapping("/create")
     public ResponseEntity<CreateRoleResponse> createRole(@RequestBody RoleRequest request){
         requestValidator.emptyRoleField(request);
-        return new ResponseEntity<>(service.createRole(request.roleName), HttpStatus.CREATED);
+        return new ResponseEntity<>(service.createRole(request.roleName.toUpperCase()), HttpStatus.CREATED);
     }
 }

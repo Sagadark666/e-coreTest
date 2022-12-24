@@ -32,7 +32,7 @@ public class MainService implements IMainService {
             logicValidator.userNotInTeam(userId, teamId);
             return membershipRepo.getRoleByTeamidAndUserid(teamId, userId).getRole();
         }catch (Exception e){
-            assignRole(userId, teamId, "Developer");
+            assignRole(userId, teamId, "DEVELOPER");
             return membershipRepo.getRoleByTeamidAndUserid(teamId, userId).getRole();
         }
     }
