@@ -1,5 +1,7 @@
 package com.sdk.roleService.service;
 
+import com.sdk.roleService.controller.AssignRoleResponse;
+import com.sdk.roleService.controller.CreateRoleResponse;
 import com.sdk.roleService.handling.ValidationException;
 import com.sdk.roleService.interfaces.IMembershipRepo;
 import com.sdk.roleService.interfaces.IRoleRepo;
@@ -21,11 +23,11 @@ public class RoleService implements IRoleService {
 
     //TODO
     // Add Defaulter for all memberships - DONE - But Burned "Developer"
-    // Add Validation of role assignation - DONE
-    // Add Validation of existing roles
-    // Add Validation of existing assignations
-    // Add Rewrite Assignations of Role
-    // Add ResponseEntities
+    // Add Validation of role assignation - ????
+    // Add Validation of existing roles - DONE
+    // Add Validation of existing assignations - DONE
+    // Add Rewrite Assignations of Role - DONE
+    // Add ResponseEntities - DONE
     // Add ExceptionHandlers
     // Add UnitTesting
     // Add RestTesting
@@ -35,6 +37,10 @@ public class RoleService implements IRoleService {
     // Review if roleServices has to be split
     // Maybe fix return of role String instead Model
     // Add result to assignation
+    // Add role/all
+    // Add additional info to ResponseEntity for Post and Put
+    // Add validation for successfully method
+
 
     public String getRole(String teamId, String userId){
         try{
@@ -49,13 +55,14 @@ public class RoleService implements IRoleService {
         return membershipRepo.findAllByRole(role);
     }
 
-    public void createRole(String roleName){
+    public CreateRoleResponse createRole(String roleName){
         RoleModel model  = new RoleModel();
         model.setRole(roleName);
         roleRepo.save(model);
+        return new CreateRoleResponse(roleName);
     }
 
-    public void assignRole(String userId, String teamId, String role){
+    public AssignRoleResponse assignRole(String userId, String teamId, String role){
         MembershipModel model;
         if(!roleRepo.existsByRole(role)){
             throw new ValidationException(role +" is not an allowed Role. " +
@@ -71,6 +78,7 @@ public class RoleService implements IRoleService {
         }
         model.setRole(role);
         membershipRepo.save(model);
+        return  new AssignRoleResponse(role, userId, teamId);
     }
 
 }
