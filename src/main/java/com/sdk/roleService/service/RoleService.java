@@ -8,7 +8,9 @@ import com.sdk.roleService.interfaces.IRoleRepo;
 import com.sdk.roleService.interfaces.IRoleService;
 import com.sdk.roleService.model.MembershipModel;
 import com.sdk.roleService.model.RoleModel;
+import com.sdk.roleService.util.ValidateRequest;
 
+import java.io.IOException;
 import java.util.List;
 
 public class RoleService implements IRoleService {
@@ -28,10 +30,8 @@ public class RoleService implements IRoleService {
     // Add Validation of existing assignations - DONE
     // Add Rewrite Assignations of Role - DONE
     // Add ResponseEntities - DONE
-    // Add ExceptionHandlers
-    // Add UnitTesting
-    // Add RestTesting
-    // Add DockerIntegration
+    // Add Validations -  DONE - Fix implementation
+    // Add ExceptionHandlers - Not Applies
     // Review Directory Structure
     // Clean up classes
     // Review if roleServices has to be split
@@ -40,10 +40,22 @@ public class RoleService implements IRoleService {
     // Add role/all
     // Add additional info to ResponseEntity for Post and Put
     // Add validation for successfully method
+    // Better validations
+    // Fuse Validation
+    // Create class connection
+    // Standardize Capitalization
+    // Add UnitTesting
+    // Add RestTesting
+    // Add DockerIntegration
 
 
-    public String getRole(String teamId, String userId){
+
+    public String getRole(String teamId, String userId) throws IOException {
         try{
+            ValidateRequest validate = new ValidateRequest(roleRepo);
+            validate.userNotExists(userId);
+            validate.teamNotExists(teamId);
+            validate.userNotInTeam(userId, teamId);
             return membershipRepo.getRoleByTeamidAndUserid(teamId, userId).getRole();
         }catch (Exception e){
             assignRole(userId, teamId, "Developer");
@@ -52,26 +64,30 @@ public class RoleService implements IRoleService {
     }
 
     public List<MembershipModel> getMembershipsByRole(String role){
+        ValidateRequest validate = new ValidateRequest(roleRepo);
+        validate.roleNotExists(role);
         return membershipRepo.findAllByRole(role);
     }
 
     public CreateRoleResponse createRole(String roleName){
+        ValidateRequest validate = new ValidateRequest(roleRepo);
+        validate.roleAlreadyExists(roleName);
         RoleModel model  = new RoleModel();
         model.setRole(roleName);
         roleRepo.save(model);
         return new CreateRoleResponse(roleName);
     }
 
-    public AssignRoleResponse assignRole(String userId, String teamId, String role){
+    public AssignRoleResponse assignRole(String userId, String teamId, String role) throws IOException {
+        ValidateRequest validate = new ValidateRequest(roleRepo);
+        validate.roleNotExists(role);
         MembershipModel model;
-        if(!roleRepo.existsByRole(role)){
-            throw new ValidationException(role +" is not an allowed Role. " +
-                    "Please check the list of allowed roles with /role/all. " +
-                    "Alternatively you can submit a new role with /role/create.");
-        }
         if(membershipRepo.existsByTeamidAndUserid(teamId, userId)){
              model = membershipRepo.getRoleByTeamidAndUserid(teamId, userId);
         } else {
+            validate.userNotExists(userId);
+            validate.teamNotExists(teamId);
+            validate.userNotInTeam(userId, teamId);
             model = new MembershipModel();
             model.setUserid(userId);
             model.setTeamid(teamId);
