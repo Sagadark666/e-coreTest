@@ -1,6 +1,6 @@
 package com.sdk.roleService.controller;
 
-import com.sdk.roleService.IRoleService;
+import com.sdk.roleService.interfaces.IRoleService;
 import org.springframework.web.bind.annotation.*;
 
 

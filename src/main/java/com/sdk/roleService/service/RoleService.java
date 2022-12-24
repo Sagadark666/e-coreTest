@@ -1,8 +1,10 @@
 package com.sdk.roleService.service;
 
-import com.sdk.roleService.*;
-
-import java.util.List;
+import com.sdk.roleService.interfaces.IMembershipRepo;
+import com.sdk.roleService.interfaces.IRoleRepo;
+import com.sdk.roleService.interfaces.IRoleService;
+import com.sdk.roleService.model.MembershipModel;
+import com.sdk.roleService.model.RoleModel;
 
 public class RoleService implements IRoleService {
 

@@ -1,4 +1,4 @@
-package com.sdk.roleService;
+package com.sdk.roleService.interfaces;
 
 public interface IRoleService {
 

@@ -1,4 +1,4 @@
-package com.sdk.roleService;
+package com.sdk.roleService.model;
 
 import jakarta.persistence.*;
 
