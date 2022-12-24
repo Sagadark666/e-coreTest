@@ -2,13 +2,12 @@ package com.sdk.roleService.service;
 
 import com.sdk.roleService.controller.AssignRoleResponse;
 import com.sdk.roleService.controller.CreateRoleResponse;
-import com.sdk.roleService.handling.ValidationException;
 import com.sdk.roleService.interfaces.IMembershipRepo;
 import com.sdk.roleService.interfaces.IRoleRepo;
 import com.sdk.roleService.interfaces.IRoleService;
 import com.sdk.roleService.model.MembershipModel;
 import com.sdk.roleService.model.RoleModel;
-import com.sdk.roleService.util.ValidateRequest;
+import com.sdk.roleService.util.ValidateLogic;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,7 +29,8 @@ public class RoleService implements IRoleService {
     // Add Validation of existing assignations - DONE
     // Add Rewrite Assignations of Role - DONE
     // Add ResponseEntities - DONE
-    // Add Validations -  DONE - Fix implementation
+    // Add Logic Validations -  DONE - Fix implementation
+    // Add Request Validations - DONE
     // Add ExceptionHandlers - Not Applies
     // Review Directory Structure
     // Clean up classes
@@ -52,7 +52,7 @@ public class RoleService implements IRoleService {
 
     public String getRole(String teamId, String userId) throws IOException {
         try{
-            ValidateRequest validate = new ValidateRequest(roleRepo);
+            ValidateLogic validate = new ValidateLogic(roleRepo);
             validate.userNotExists(userId);
             validate.teamNotExists(teamId);
             validate.userNotInTeam(userId, teamId);
@@ -64,13 +64,13 @@ public class RoleService implements IRoleService {
     }
 
     public List<MembershipModel> getMembershipsByRole(String role){
-        ValidateRequest validate = new ValidateRequest(roleRepo);
+        ValidateLogic validate = new ValidateLogic(roleRepo);
         validate.roleNotExists(role);
         return membershipRepo.findAllByRole(role);
     }
 
     public CreateRoleResponse createRole(String roleName){
-        ValidateRequest validate = new ValidateRequest(roleRepo);
+        ValidateLogic validate = new ValidateLogic(roleRepo);
         validate.roleAlreadyExists(roleName);
         RoleModel model  = new RoleModel();
         model.setRole(roleName);
@@ -79,7 +79,7 @@ public class RoleService implements IRoleService {
     }
 
     public AssignRoleResponse assignRole(String userId, String teamId, String role) throws IOException {
-        ValidateRequest validate = new ValidateRequest(roleRepo);
+        ValidateLogic validate = new ValidateLogic(roleRepo);
         validate.roleNotExists(role);
         MembershipModel model;
         if(membershipRepo.existsByTeamidAndUserid(teamId, userId)){
