@@ -20,7 +20,8 @@
     // Better validations - DONE
     // Fuse Validation - DONE
     // Create class connection - DONE 
-    // Standardize Capitalization
+    // Standardize Capitalization - DONE
     // Add UnitTesting
     // Add RestTesting
     // Add DockerIntegration
+    // Fix throws IOException
