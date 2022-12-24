@@ -1,4 +1,18 @@
 CREATE TABLE ROLES(ID INT PRIMARY KEY, ROLE VARCHAR(255));
-INSERT INTO ROLES (id, role) VALUES (1, 'Developer');
-INSERT INTO ROLES (id, role) VALUES (2, 'Product Owner');
-INSERT INTO ROLES (id, role) VALUES (3, 'Tester');
+INSERT INTO ROLES VALUES(1, 'Developer');
+INSERT INTO ROLES VALUES(2, 'Product Owner');
+INSERT INTO ROLES VALUES(3, 'Tester');
+CREATE SEQUENCE ROLES_SEQ
+start with 4
+increment by 50
+minvalue 0
+maxvalue 100
+cycle;
+
+CREATE TABLE MEMBERSHIP(ID INT PRIMARY KEY, USERID VARCHAR(255), TEAMID VARCHAR(255), ROLE VARCHAR(255));
+CREATE SEQUENCE MEMBERSHIP_SEQ
+start with 1
+increment by 50
+minvalue 0
+maxvalue 100
+cycle;

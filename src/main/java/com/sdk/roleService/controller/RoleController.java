@@ -1,32 +1,30 @@
 package com.sdk.roleService.controller;
 
-import com.sdk.roleService.service.Role;
+import com.sdk.roleService.IRoleService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 public class RoleController {
 
-    private static final String template = "Hello, %s!";
+    final private IRoleService service;
 
-    @GetMapping("/role")
-    public Role role(@RequestParam(value = "userId", defaultValue = "World")String name){
-        return new Role(1, String.format(template, name));
+    public RoleController(IRoleService service) {
+        this.service = service;
     }
 
-//    @GetMapping("/role/all")
-//    public String getEnrollment(@PathVariable("role-name") String role){
-//        return role;
-//    }
+    @GetMapping("/role")
+    public String getRole(@RequestParam(value = "teamId", defaultValue = "World")String teamId, @RequestParam(value = "userId", defaultValue = "World")String userId){
+        return service.getRole(teamId, userId);
+    }
 
-    @GetMapping("/role/all")
-    public List<String> getEnrollment(){
-        return new Role(1, String.format(template, "name")).getRoles();
+    @PostMapping("/role/assign")
+    public void setRole(@RequestBody MembershipRequest request){
+        service.assignRole(request.userId, request.teamId, request.role);
     }
 
     @PostMapping("/role/create")
     public void createRole(@RequestBody RoleRequest request){
-        new Role(1, String.format(template, "name")).createRole(request.roleName);
+        service.createRole(request.roleName);
     }
 }
