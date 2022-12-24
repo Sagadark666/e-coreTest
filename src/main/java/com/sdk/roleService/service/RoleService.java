@@ -32,12 +32,12 @@ public class RoleService implements IRoleService {
     // Add Logic Validations -  DONE - Fix implementation
     // Add Request Validations - DONE
     // Add ExceptionHandlers - Not Applies
-    // Review Directory Structure
+    // Review Directory Structure - DONE
     // Clean up classes
-    // Review if roleServices has to be split
-    // Maybe fix return of role String instead Model
-    // Add result to assignation
-    // Add role/all
+    // Review if roleServices has to be split - DONE
+    // Maybe fix return of role String instead Model - DONE
+    // Add result to assignation - DONE
+    // Add role/all - DONE
     // Add additional info to ResponseEntity for Post and Put
     // Add validation for successfully method
     // Better validations
@@ -50,6 +50,7 @@ public class RoleService implements IRoleService {
 
 
 
+    @Override
     public String getRole(String teamId, String userId) throws IOException {
         try{
             ValidateLogic validate = new ValidateLogic(roleRepo);
@@ -63,12 +64,18 @@ public class RoleService implements IRoleService {
         }
     }
 
+    @Override
+    public List<RoleModel> getRoles() {
+        return roleRepo.findAll();
+    }
+
     public List<MembershipModel> getMembershipsByRole(String role){
         ValidateLogic validate = new ValidateLogic(roleRepo);
         validate.roleNotExists(role);
         return membershipRepo.findAllByRole(role);
     }
 
+    @Override
     public CreateRoleResponse createRole(String roleName){
         ValidateLogic validate = new ValidateLogic(roleRepo);
         validate.roleAlreadyExists(roleName);
@@ -78,6 +85,7 @@ public class RoleService implements IRoleService {
         return new CreateRoleResponse(roleName);
     }
 
+    @Override
     public AssignRoleResponse assignRole(String userId, String teamId, String role) throws IOException {
         ValidateLogic validate = new ValidateLogic(roleRepo);
         validate.roleNotExists(role);
@@ -94,7 +102,7 @@ public class RoleService implements IRoleService {
         }
         model.setRole(role);
         membershipRepo.save(model);
-        return  new AssignRoleResponse(role, userId, teamId);
+        return new AssignRoleResponse(role, userId, teamId);
     }
 
 }
