@@ -1,6 +1,6 @@
 package com.sdk.roleService.controller;
 
-import com.sdk.roleService.interfaces.IRoleService;
+import com.sdk.roleService.interfaces.IMainService;
 import com.sdk.roleService.interfaces.IValidateRequest;
 import com.sdk.roleService.model.MembershipModel;
 import com.sdk.roleService.model.RoleModel;
@@ -16,10 +16,10 @@ import java.util.List;
 @RequestMapping("/role")
 public class Controller {
 
-    final private IRoleService service;
+    final private IMainService service;
     final private IValidateRequest requestValidator;
 
-    public Controller(IRoleService service, IValidateRequest requestValidator) {
+    public Controller(IMainService service, IValidateRequest requestValidator) {
         this.service = service;
         this.requestValidator = requestValidator;
     }

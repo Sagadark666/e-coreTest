@@ -7,9 +7,10 @@ import java.util.List;
 
 public interface IMembershipRepo extends JpaRepository<MembershipModel, Integer> {
 
-    MembershipModel getRoleByTeamidAndUserid(String teamId, String userId);
+
+    List<MembershipModel> findAllByRole(String role);
 
     boolean existsByTeamidAndUserid(String teamId, String userId);
 
-    List<MembershipModel> findAllByRole(String role);
+    MembershipModel getRoleByTeamidAndUserid(String teamId, String userId);
 }

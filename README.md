@@ -17,9 +17,9 @@
     // Add role/all - DONE
     // Add additional info to ResponseEntity for Post and Put - DISCARDED
     // Add validation for successfully method - DONE
-    // Better validations
-    // Fuse Validation
-    // Create class connection
+    // Better validations - DONE
+    // Fuse Validation - DONE
+    // Create class connection - DONE 
     // Standardize Capitalization
     // Add UnitTesting
     // Add RestTesting

@@ -7,9 +7,9 @@ import javax.management.relation.Role;
 
 public interface IValidateRequest {
 
-    public void emptyMembershipField(MembershipRequest request);
     public void emptyRoleField(RoleRequest request);
 
     public void emptyField(String field, String value);
 
+    public void emptyMembershipField(MembershipRequest request);
 }

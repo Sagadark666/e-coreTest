@@ -3,11 +3,7 @@ package com.sdk.roleService.util;
 import com.sdk.roleService.controller.MembershipRequest;
 import com.sdk.roleService.controller.RoleRequest;
 import com.sdk.roleService.handling.ValidationException;
-import com.sdk.roleService.interfaces.IRoleRepo;
 import com.sdk.roleService.interfaces.IValidateRequest;
-import com.sdk.roleService.service.ValidationService;
-
-import java.io.IOException;
 
 public class ValidateRequest implements IValidateRequest{
 
