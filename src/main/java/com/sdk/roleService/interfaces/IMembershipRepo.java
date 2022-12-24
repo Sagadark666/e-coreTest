@@ -9,5 +9,7 @@ public interface IMembershipRepo extends JpaRepository<MembershipModel, Integer>
 
     MembershipModel getRoleByTeamidAndUserid(String teamId, String userId);
 
+    boolean existsByTeamidAndUserid(String teamId, String userId);
+
     List<MembershipModel> findAllByRole(String role);
 }
