@@ -6,6 +6,8 @@ import com.sdk.roleService.interfaces.IRoleService;
 import com.sdk.roleService.model.MembershipModel;
 import com.sdk.roleService.model.RoleModel;
 
+import java.util.List;
+
 public class RoleService implements IRoleService {
 
     private final IRoleRepo roleRepo;
@@ -18,6 +20,10 @@ public class RoleService implements IRoleService {
 
     public String getRole(String teamId, String userId){
         return membershipRepo.getRoleByTeamidAndUserid(teamId, userId).getRole();
+    }
+
+    public List<MembershipModel> getMembershipsByRole(String role){
+        return membershipRepo.findAllByRole(role);
     }
 
     public void createRole(String roleName){
