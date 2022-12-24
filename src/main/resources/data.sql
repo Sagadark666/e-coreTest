@@ -1,0 +1,4 @@
+CREATE TABLE ROLES(ID INT PRIMARY KEY, ROLE VARCHAR(255));
+INSERT INTO ROLES (id, role) VALUES (1, 'Developer');
+INSERT INTO ROLES (id, role) VALUES (2, 'Product Owner');
+INSERT INTO ROLES (id, role) VALUES (3, 'Tester');
